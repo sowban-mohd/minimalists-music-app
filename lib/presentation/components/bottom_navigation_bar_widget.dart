@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:minimalists_music_app/controller/selected_tab.dart';
+import 'package:minimalists_music_app/controller/music_upload_controller.dart';
+import 'package:minimalists_music_app/controller/selected_tab_index.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({super.key});
@@ -22,7 +23,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Consumer(
-                builder: (context, ref, _) {
+                builder: (_, ref, _) {
                   final selectedIndex = ref.watch(selectedTabIndexProvider);
                   final selectedIndexNotifier = ref.read(
                     selectedTabIndexProvider.notifier,
@@ -40,17 +41,25 @@ class BottomNavigationBarWidget extends StatelessWidget {
                 },
               ),
 
-              IconButton(
+              Consumer(
+                builder: (_, ref, _) {
+                  final musicuploadControllerNotifier = ref.read(
+                    musicUploadControllerProvider.notifier,
+                  );
+                  return IconButton(
                     icon: Icon(
                       Icons.file_upload_outlined,
                       size: 28,
                       color: Color(0xFF7cbbd7),
                     ),
-                    onPressed: () {}
-                  ),
+                    onPressed: () => musicuploadControllerNotifier
+                        .uploadSongs(), //Triggering file picking
+                  );
+                },
+              ),
 
               Consumer(
-                builder: (context, ref, _) {
+                builder: (_, ref, _) {
                   final selectedIndex = ref.watch(selectedTabIndexProvider);
                   final selectedIndexNotifier = ref.read(
                     selectedTabIndexProvider.notifier,

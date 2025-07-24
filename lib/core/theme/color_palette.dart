@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class ColorPalette {
   //Common
   static const scaffoldBackgroundColor = Color(0XFFCAE9F5);
-  static const onSurface = Color(0xFF62abcc);
+  static const surfaceContainer = Colors.white;
+  static const onSurfaceContainer = Color(0xFF62abcc);
+  static const musicCardColor = Color(0xFFcfeffa);
+  static const onMusicCard = Color(0xFF73bbdb);
 
   //Tonearm
   static const tonearmColor = Color(0xFF7dbbd7);
