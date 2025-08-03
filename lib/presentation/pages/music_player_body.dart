@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:minimalists_music_app/controller/music_play_controller.dart';
 import 'package:minimalists_music_app/controller/tonearm_state_notifier.dart';
 import 'package:minimalists_music_app/presentation/components/cd.dart';
 import 'package:minimalists_music_app/presentation/components/search_bar_widget.dart';
@@ -10,6 +11,14 @@ class PlayerScreenBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(musicPlayControllerProvider, (_, next) async {
+      if (next.shouldPlay == true) {
+       await ref.read(musicPlayControllerProvider.notifier).playRandomSong();
+      } else {
+       await ref.read(musicPlayControllerProvider.notifier).stop();
+      }
+    });
+
     final tonearmStateNotifier = ref.read(tonearmStateProvider.notifier);
     final screenHeight = MediaQuery.sizeOf(context).height;
     final screenWidth = MediaQuery.sizeOf(context).width;

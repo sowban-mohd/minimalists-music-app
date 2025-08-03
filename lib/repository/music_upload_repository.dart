@@ -2,14 +2,15 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:minimalists_music_app/core/constants/constants.dart';
 import 'package:minimalists_music_app/models/music_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_media_metadata/flutter_media_metadata.dart';
 import 'package:path/path.dart' as p;
 
-final musicRepositoryProvider = Provider((ref) => MusicRepository());
+final musicUploadRepositoryProvider = Provider((ref) => MusicUploadRepository());
 
-class MusicRepository {
+class MusicUploadRepository {
   ///Picking audio file(s)
   Future<FilePickerResult?> pickMusicFiles() async {
     final result = await FilePicker.platform.pickFiles(
@@ -43,7 +44,7 @@ class MusicRepository {
     List<String>? trackArtistNames,
     required String newPath,
   }) async {
-    final box = Hive.box<MusicFile>('music_files');
+    final box = Hive.box<MusicFile>(Constants.musicBoxName);
     final musicFile = MusicFile(
       name: trackName,
       path: newPath,

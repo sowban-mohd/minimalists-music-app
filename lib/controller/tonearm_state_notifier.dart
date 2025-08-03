@@ -55,4 +55,11 @@ class TonearmStateNotifier extends Notifier<TonearmState> {
       state = state.copyWith(rotationAngle: _restingAngle);
     }
   }
+
+  void unsnapFromCd() {
+  state = state.copyWith(
+    isSnappedToCd: false,
+    rotationAngle: _restingAngle,
+  );
+}
 }
